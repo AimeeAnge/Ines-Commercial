@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // dashboard.php - Admin Dashboard
-session_start();
 require_once 'db.php';
 require_once 'mvc/controllers/DashboardController.php';
 $controller = new DashboardController($conn);

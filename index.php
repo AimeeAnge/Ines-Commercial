@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // index.php - Public homepage entry
-session_start();
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['user_role'] == 'Admin') {
         header("Location: dashboard.php");

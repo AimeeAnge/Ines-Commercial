@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // orders.php - Admin Orders
-session_start();
 require_once 'db.php';
 require_once 'mvc/controllers/OrderController.php';
 $controller = new OrderController($conn);

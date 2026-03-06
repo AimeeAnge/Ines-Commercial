@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // products.php - Admin Products
-session_start();
 require_once 'db.php';
 require_once 'mvc/controllers/ProductController.php';
 $controller = new ProductController($conn);

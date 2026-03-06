@@ -24,16 +24,30 @@ class ProductController
         if (!isset($_FILES[$fieldName]) || $_FILES[$fieldName]['error'] !== UPLOAD_ERR_OK)
             return '';
         $file = $_FILES[$fieldName];
-        $allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        if (!in_array($file['type'], $allowed))
+        $allowed = [
+            'image/jpeg' => 'jpg',
+            'image/png'  => 'png',
+            'image/gif'  => 'gif',
+            'image/webp' => 'webp',
+        ];
+
+        // Enforce small uploads and real image MIME type to block web shells
+        if ($file['size'] > 2 * 1024 * 1024) { // 2MB limit
             return '';
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $filename = uniqid('prod_') . '.' . $ext;
+        }
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $realMime = $finfo->file($file['tmp_name']);
+        if (!isset($allowed[$realMime])) {
+            return '';
+        }
+
+        $ext = $allowed[$realMime];
+        $filename = uniqid('prod_', true) . '.' . $ext;
         $uploadDir = __DIR__ . '/../../assets/uploads/products/';
         if (!is_dir($uploadDir))
             mkdir($uploadDir, 0755, true);
         $dest = $uploadDir . $filename;
-        if (move_uploaded_file($file['tmp_name'], $dest)) {
+        if (is_uploaded_file($file['tmp_name']) && move_uploaded_file($file['tmp_name'], $dest)) {
             return 'assets/uploads/products/' . $filename;
         }
         return '';

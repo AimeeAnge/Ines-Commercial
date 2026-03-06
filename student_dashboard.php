@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // student_dashboard.php - Student Dashboard Entry
-session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();

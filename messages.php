@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // messages.php - Admin Messages
-session_start();
 require_once 'db.php';
 require_once 'mvc/controllers/MessageController.php';
 $controller = new MessageController($conn);

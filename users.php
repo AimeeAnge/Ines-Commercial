@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // users.php - Admin Users
-session_start();
 require_once 'db.php';
 require_once 'mvc/controllers/UserController.php';
 $controller = new UserController($conn);

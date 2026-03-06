@@ -1,6 +1,6 @@
 <?php
+require_once __DIR__ . '/init.php';
 // login.php
-session_start();
 if (isset($_SESSION['user_id'])) {
     header("Location: " . ($_SESSION['user_role'] == 'Admin' ? 'dashboard.php' : 'student_dashboard.php'));
     exit();
